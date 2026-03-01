@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import type { StaticImageData } from "next/image";
 import { Dialog, DialogBackdrop, DialogPanel, Transition, TransitionChild } from "@headlessui/react";
 import Image from "next/image";
@@ -26,14 +26,6 @@ export default function ModalVideo({
   videoHeight,
 }: ModalVideoProps) {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  // This prevents the page from "jumping" to the top when the modal opens
-  const handleOpen = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setModalOpen(true);
-  };
 
   return (
     <div className="relative">
@@ -44,9 +36,9 @@ export default function ModalVideo({
 
       {/* Video Thumbnail Button */}
       <button
-        type="button" // Critical: prevents form submission jumps
+        type="button"
         className="group relative flex w-full items-center justify-center rounded-2xl focus:outline-none transition-transform duration-500 hover:scale-[1.02]"
-        onClick={handleOpen}
+        onClick={() => setModalOpen(true)}
       >
         <figure className="relative w-full overflow-hidden rounded-2xl bg-gray-900 shadow-2xl">
           <Image
@@ -59,7 +51,6 @@ export default function ModalVideo({
           />
         </figure>
         
-        {/* Play Icon and Text Overlay - Coming Forward on Z-Axis */}
         <div className="absolute z-20 flex items-center gap-4 rounded-full bg-gray-950/90 px-6 py-3 backdrop-blur-xl border border-white/10 shadow-2xl transition-all duration-300 group-hover:bg-indigo-600 group-hover:scale-110">
           <svg className="h-5 w-5 fill-current text-white" viewBox="0 0 24 24">
             <path d="M5 3l14 9-14 9V3z" />
@@ -70,14 +61,9 @@ export default function ModalVideo({
         </div>
       </button>
 
-      {/* The Modal - Pure Z-Axis Movement */}
+      {/* The Modal */}
       <Transition show={modalOpen} as="div">
-        <Dialog 
-          onClose={() => setModalOpen(false)} 
-          className="relative z-[99999]"
-          static={false}
-        >
-          {/* Backdrop Fade - No movement, just Z-depth */}
+        <Dialog onClose={() => setModalOpen(false)} className="relative z-[99999]">
           <TransitionChild
             enter="duration-300 ease-out"
             enterFrom="opacity-0"
@@ -89,14 +75,13 @@ export default function ModalVideo({
             <DialogBackdrop className="fixed inset-0 bg-black/95 backdrop-blur-2xl" />
           </TransitionChild>
 
-          {/* The Content Container - Centered on screen, moving only in Scale (Z) */}
-          <div className="fixed inset-0 z-[100000] flex items-center justify-center p-4 md:p-8 pointer-events-none">
+          <div className="fixed inset-0 z-[100000] flex items-center justify-center p-4 md:p-8">
             <TransitionChild
               as="div"
-              className="w-full max-w-6xl pointer-events-auto"
-              enter="duration-500 cubic-bezier(0.34, 1.56, 0.64, 1)" // Bouncy Z-axis effect
-              enterFrom="opacity-0 scale-75" // Starts small (deep in Z)
-              enterTo="opacity-100 scale-100" // Scales up (forward in Z)
+              className="w-full max-w-6xl"
+              enter="duration-500 cubic-bezier(0.34, 1.56, 0.64, 1)"
+              enterFrom="opacity-0 scale-75"
+              enterTo="opacity-100 scale-100"
               leave="duration-300 ease-in"
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-75"
@@ -105,7 +90,7 @@ export default function ModalVideo({
                 
                 {/* Close Button */}
                 <button 
-                  onClick={(e) => { e.stopPropagation(); setModalOpen(false); }}
+                  onClick={() => setModalOpen(false)}
                   className="absolute right-6 top-6 z-[100001] flex h-12 w-12 items-center justify-center rounded-full bg-black/60 text-white/50 hover:text-white transition-colors"
                 >
                   <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -113,20 +98,22 @@ export default function ModalVideo({
                   </svg>
                 </button>
 
-               <video
-  ref={videoRef}
-  width={videoWidth}
-  height={videoHeight}
-  controls
-  playsInline      // Forces it to play inside the modal (Required for iPhone)
-  autoPlay        // Starts the video immediately
-  muted           // This is the "Magic Key" that mobile browsers require
-  preload="auto"
-  className="aspect-video w-full object-contain"
->
-  <source src={video} type="video/mp4" />
-  Your browser does not support the video tag.
-</video>
+                {/* THE CLEAN VIDEO TAG */}
+                {modalOpen && (
+                  <video
+                    width={videoWidth}
+                    height={videoHeight}
+                    loop
+                    controls
+                    autoPlay
+                    muted
+                    playsInline
+                    className="aspect-video w-full object-contain"
+                  >
+                    <source src={video} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                )}
               </DialogPanel>
             </TransitionChild>
           </div>
