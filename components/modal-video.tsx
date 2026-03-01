@@ -98,12 +98,11 @@ export default function ModalVideo({
                   </svg>
                 </button>
 
-                {/* THE CLEAN VIDEO TAG */}
+                {/* --- UNIVERSAL FIX: Conditional rendering ensures fresh load --- */}
                 {modalOpen && (
                   <video
                     width={videoWidth}
                     height={videoHeight}
-                    loop
                     controls
                     autoPlay
                     muted
