@@ -113,18 +113,20 @@ export default function ModalVideo({
                   </svg>
                 </button>
 
-                <video
-                  ref={videoRef}
-                  width={videoWidth}
-                  height={videoHeight}
-                  controls
-                  autoPlay
-                  playsInline
-                  className="aspect-video w-full object-contain"
-                >
-                  <source src={video} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
+               <video
+  ref={videoRef}
+  width={videoWidth}
+  height={videoHeight}
+  controls
+  playsInline      // Forces it to play inside the modal (Required for iPhone)
+  autoPlay        // Starts the video immediately
+  muted           // This is the "Magic Key" that mobile browsers require
+  preload="auto"
+  className="aspect-video w-full object-contain"
+>
+  <source src={video} type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
               </DialogPanel>
             </TransitionChild>
           </div>
