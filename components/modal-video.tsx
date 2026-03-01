@@ -93,15 +93,12 @@ export default function ModalVideo({
                   </svg>
                 </button>
 
-                {/* THE CLEAN VIDEO TAG - Starts only when modal opens */}
                 {modalOpen && (
                   <video
                     width={videoWidth}
                     height={videoHeight}
                     controls
                     autoPlay
-                    muted
-                    playsInline
                     className="aspect-video w-full object-contain"
                   >
                     <source src={video} type="video/mp4" />
