@@ -29,12 +29,10 @@ export default function ModalVideo({
 
   return (
     <div className="relative">
-      {/* Background Decoration */}
       <div className="pointer-events-none absolute bottom-8 left-1/2 -z-10 -ml-28 -translate-x-1/2 translate-y-1/2" aria-hidden="true">
         <Image src={SecondaryIllustration} width={1165} height={1012} alt="Decoration" />
       </div>
 
-      {/* Video Thumbnail Button */}
       <button
         type="button"
         className="group relative flex w-full items-center justify-center rounded-2xl focus:outline-none transition-transform duration-500 hover:scale-[1.02]"
@@ -61,7 +59,6 @@ export default function ModalVideo({
         </div>
       </button>
 
-      {/* The Modal */}
       <Transition show={modalOpen} as="div">
         <Dialog onClose={() => setModalOpen(false)} className="relative z-[99999]">
           <TransitionChild
@@ -87,8 +84,6 @@ export default function ModalVideo({
               leaveTo="opacity-0 scale-75"
             >
               <DialogPanel className="relative overflow-hidden rounded-3xl bg-black shadow-[0_0_100px_rgba(79,70,229,0.4)] border border-white/10">
-                
-                {/* Close Button */}
                 <button 
                   onClick={() => setModalOpen(false)}
                   className="absolute right-6 top-6 z-[100001] flex h-12 w-12 items-center justify-center rounded-full bg-black/60 text-white/50 hover:text-white transition-colors"
@@ -98,7 +93,7 @@ export default function ModalVideo({
                   </svg>
                 </button>
 
-                {/* --- UNIVERSAL FIX: Conditional rendering ensures fresh load --- */}
+                {/* THE CLEAN VIDEO TAG - Starts only when modal opens */}
                 {modalOpen && (
                   <video
                     width={videoWidth}

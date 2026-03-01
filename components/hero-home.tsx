@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react"; // Added useEffect
+import { useState, useRef, useEffect } from "react";
 import type { StaticImageData } from "next/image";
 import { Dialog, DialogBackdrop, DialogPanel, Transition, TransitionChild } from "@headlessui/react";
 import Image from "next/image";
@@ -28,21 +28,18 @@ export default function ModalVideo({
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // --- NEW: MOBILE FIX ---
-  // This force-starts the video when the modal opens
+  // Handle Autoplay logic
   useEffect(() => {
     if (modalOpen && videoRef.current) {
-      videoRef.current.play().catch(error => {
-        console.log("Autoplay prevented, user must click play:", error);
-      });
+      // Small timeout ensures the DOM element is fully painted before playing
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((error) => {
+          console.log("Autoplay blocked, showing controls for manual play:", error);
+        });
+      }
     }
   }, [modalOpen]);
-
-  const handleOpen = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setModalOpen(true);
-  };
 
   return (
     <div className="relative">
@@ -53,7 +50,7 @@ export default function ModalVideo({
       <button
         type="button"
         className="group relative flex w-full items-center justify-center rounded-2xl focus:outline-none transition-transform duration-500 hover:scale-[1.02]"
-        onClick={handleOpen}
+        onClick={() => setModalOpen(true)}
       >
         <figure className="relative w-full overflow-hidden rounded-2xl bg-gray-900 shadow-2xl">
           <Image
@@ -77,10 +74,7 @@ export default function ModalVideo({
       </button>
 
       <Transition show={modalOpen} as="div">
-        <Dialog 
-          onClose={() => setModalOpen(false)} 
-          className="relative z-[99999]"
-        >
+        <Dialog onClose={() => setModalOpen(false)} className="relative z-[99999]">
           <TransitionChild
             enter="duration-300 ease-out"
             enterFrom="opacity-0"
@@ -92,10 +86,10 @@ export default function ModalVideo({
             <DialogBackdrop className="fixed inset-0 bg-black/95 backdrop-blur-2xl" />
           </TransitionChild>
 
-          <div className="fixed inset-0 z-[100000] flex items-center justify-center p-4 md:p-8 pointer-events-none">
+          <div className="fixed inset-0 z-[100000] flex items-center justify-center p-4 md:p-8">
             <TransitionChild
               as="div"
-              className="w-full max-w-6xl pointer-events-auto"
+              className="w-full max-w-6xl"
               enter="duration-500 cubic-bezier(0.34, 1.56, 0.64, 1)"
               enterFrom="opacity-0 scale-75"
               enterTo="opacity-100 scale-100"
@@ -104,9 +98,8 @@ export default function ModalVideo({
               leaveTo="opacity-0 scale-75"
             >
               <DialogPanel className="relative overflow-hidden rounded-3xl bg-black shadow-[0_0_100px_rgba(79,70,229,0.4)] border border-white/10">
-                
                 <button 
-                  onClick={(e) => { e.stopPropagation(); setModalOpen(false); }}
+                  onClick={() => setModalOpen(false)}
                   className="absolute right-6 top-6 z-[100001] flex h-12 w-12 items-center justify-center rounded-full bg-black/60 text-white/50 hover:text-white transition-colors"
                 >
                   <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -114,19 +107,23 @@ export default function ModalVideo({
                   </svg>
                 </button>
 
-                {/* --- UPDATED VIDEO TAG --- */}
-                <video
-                  ref={videoRef}
-                  width={videoWidth}
-                  height={videoHeight}
-                  controls
-                  playsInline // Required for iOS
-                  preload="auto"
-                  className="aspect-video w-full object-contain"
-                >
-                  <source src={video} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
+                {/* THE CLEAN VIDEO TAG */}
+                {modalOpen && (
+                  <video
+                    ref={videoRef}
+                    width={videoWidth}
+                    height={videoHeight}
+                    loop
+                    controls
+                    autoPlay
+                    muted
+                    playsInline
+                    className="aspect-video w-full object-contain"
+                  >
+                    <source src={video} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                )}
               </DialogPanel>
             </TransitionChild>
           </div>
