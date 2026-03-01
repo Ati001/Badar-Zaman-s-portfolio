@@ -82,7 +82,7 @@ export default function HeroHome() {
             thumbWidth={1104}
             thumbHeight={576}
             thumbAlt="Badar Zaman Portfolio Showreel"
-            video="/videos/intro-video.mp4" 
+            video="/videos/Intro-video.mp4" 
             videoWidth={3840} 
             videoHeight={2160} 
           />
