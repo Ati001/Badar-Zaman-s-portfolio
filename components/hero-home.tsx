@@ -1,134 +1,93 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import type { StaticImageData } from "next/image";
-import { Dialog, DialogBackdrop, DialogPanel, Transition, TransitionChild } from "@headlessui/react";
 import Image from "next/image";
-import SecondaryIllustration from "@/public/images/secondary-illustration.svg";
+import VideoThumb from "@/public/images/thumbnail.jpg";
+import ModalVideo from "@/components/modal-video";
 
-interface ModalVideoProps {
-  thumb: StaticImageData;
-  thumbWidth: number;
-  thumbHeight: number;
-  thumbAlt: string;
-  video: string;
-  videoWidth: number;
-  videoHeight: number;
-}
-
-export default function ModalVideo({
-  thumb,
-  thumbWidth,
-  thumbHeight,
-  thumbAlt,
-  video,
-  videoWidth,
-  videoHeight,
-}: ModalVideoProps) {
-  const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  // Handle Autoplay logic
-  useEffect(() => {
-    if (modalOpen && videoRef.current) {
-      // Small timeout ensures the DOM element is fully painted before playing
-      const playPromise = videoRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.catch((error) => {
-          console.log("Autoplay blocked, showing controls for manual play:", error);
-        });
-      }
-    }
-  }, [modalOpen]);
-
+export default function HeroHome() {
   return (
-    <div className="relative">
-      <div className="pointer-events-none absolute bottom-8 left-1/2 -z-10 -ml-28 -translate-x-1/2 translate-y-1/2" aria-hidden="true">
-        <Image src={SecondaryIllustration} width={1165} height={1012} alt="Decoration" />
-      </div>
+    <section className="relative">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="pt-32 pb-12 md:pt-40 md:pb-20">
+          
+          <div className="flex flex-col items-center gap-12 pb-12 md:flex-row md:pb-20 md:text-left">
+            
+            {/* Photo Box */}
+            <div className="shrink-0" data-aos="fade-right">
+              <div className="relative inline-flex">
+                <div className="absolute -inset-1 rounded-2xl bg-indigo-500/20 blur-sm"></div>
+                <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gray-900 shadow-2xl">
+                  <Image
+                    src="/images/mine.png" 
+                    width={300}
+                    height={380}
+                    alt="Badar Zaman"
+                    className="object-cover transition-transform duration-500 hover:scale-105"
+                    priority
+                  />
+                  <div className="bg-gray-900/80 py-3 text-center backdrop-blur-md border-t border-white/5">
+                    <p className="font-nacelle text-sm font-bold tracking-wider text-indigo-400 uppercase">
+                      Badar Zaman
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-      <button
-        type="button"
-        className="group relative flex w-full items-center justify-center rounded-2xl focus:outline-none transition-transform duration-500 hover:scale-[1.02]"
-        onClick={() => setModalOpen(true)}
-      >
-        <figure className="relative w-full overflow-hidden rounded-2xl bg-gray-900 shadow-2xl">
-          <Image
-            className="w-full opacity-60 grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:opacity-100"
-            src={thumb}
-            width={thumbWidth}
-            height={thumbHeight}
-            alt={thumbAlt}
-            priority
-          />
-        </figure>
-        
-        <div className="absolute z-20 flex items-center gap-4 rounded-full bg-gray-950/90 px-6 py-3 backdrop-blur-xl border border-white/10 shadow-2xl transition-all duration-300 group-hover:bg-indigo-600 group-hover:scale-110">
-          <svg className="h-5 w-5 fill-current text-white" viewBox="0 0 24 24">
-            <path d="M5 3l14 9-14 9V3z" />
-          </svg>
-          <span className="text-sm font-bold tracking-widest text-white uppercase">
-            Watch Showreel <span className="text-white/40 ml-1">4K</span>
-          </span>
-        </div>
-      </button>
-
-      <Transition show={modalOpen} as="div">
-        <Dialog onClose={() => setModalOpen(false)} className="relative z-[99999]">
-          <TransitionChild
-            enter="duration-300 ease-out"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="duration-200 ease-in"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <DialogBackdrop className="fixed inset-0 bg-black/95 backdrop-blur-2xl" />
-          </TransitionChild>
-
-          <div className="fixed inset-0 z-[100000] flex items-center justify-center p-4 md:p-8">
-            <TransitionChild
-              as="div"
-              className="w-full max-w-6xl"
-              enter="duration-500 cubic-bezier(0.34, 1.56, 0.64, 1)"
-              enterFrom="opacity-0 scale-75"
-              enterTo="opacity-100 scale-100"
-              leave="duration-300 ease-in"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-75"
-            >
-              <DialogPanel className="relative overflow-hidden rounded-3xl bg-black shadow-[0_0_100px_rgba(79,70,229,0.4)] border border-white/10">
-                <button 
-                  onClick={() => setModalOpen(false)}
-                  className="absolute right-6 top-6 z-[100001] flex h-12 w-12 items-center justify-center rounded-full bg-black/60 text-white/50 hover:text-white transition-colors"
+            {/* Text Content */}
+            <div className="flex-grow">
+              {/* --- ANIMATED TITLE --- */}
+              <h1 
+                className="animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,var(--color-gray-200),var(--color-indigo-200),var(--color-gray-50),var(--color-indigo-300),var(--color-gray-200))] bg-[length:200%_auto] bg-clip-text pb-5 font-nacelle text-4xl font-semibold text-transparent md:text-5xl"
+                data-aos="fade-up" 
+                data-aos-delay="100"
+              >
+                High-Retention Visuals for Modern Brands
+              </h1>
+              
+              <div className="max-w-3xl">
+                {/* --- ANIMATED DESCRIPTION --- */}
+                <p 
+                  className="mb-8 text-xl text-indigo-200/65 leading-relaxed"
+                  data-aos="fade-up" 
+                  data-aos-delay="200"
                 >
-                  <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-
-                {/* THE CLEAN VIDEO TAG */}
-                {modalOpen && (
-                  <video
-                    ref={videoRef}
-                    width={videoWidth}
-                    height={videoHeight}
-                    loop
-                    controls
-                    autoPlay
-                    muted
-                    playsInline
-                    className="aspect-video w-full object-contain"
+                  I specialize in cinematic video editing and motion design that transforms 
+                  raw footage into high-performing assets. Whether it's YouTube content 
+                  or brand commercials, I deliver results that grab attention.
+                </p>
+                
+                {/* Smooth Scroll Button */}
+                <div data-aos="fade-up" data-aos-delay="300">
+                  <a
+                    className="btn group bg-linear-to-t from-indigo-600 to-indigo-500 bg-[length:100%_100%] bg-[bottom] text-white shadow-[inset_0px_1px_0px_0px_rgba(255,255,255,0.16)] hover:bg-[length:100%_150%] px-8 py-3 rounded-lg inline-flex items-center transition-all cursor-pointer"
+                    href="#portfolio"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
                   >
-                    <source src={video} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                )}
-              </DialogPanel>
-            </TransitionChild>
+                    View Portfolio
+                    <span className="ml-2 tracking-normal text-white/50 transition-transform group-hover:translate-x-0.5">
+                      -&gt;
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
-        </Dialog>
-      </Transition>
-    </div>
+
+          <ModalVideo
+            thumb={VideoThumb}
+            thumbWidth={1104}
+            thumbHeight={576}
+            thumbAlt="Badar Zaman Portfolio Showreel"
+            video="/videos/intro-video.mp4" 
+            videoWidth={3840} 
+            videoHeight={2160} 
+          />
+        </div>
+      </div>
+    </section>
   );
 }
