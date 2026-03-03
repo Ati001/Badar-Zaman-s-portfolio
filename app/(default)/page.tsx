@@ -5,21 +5,26 @@ import Features from "@/components/features";
 import Testimonials from "@/components/testimonials";
 import Cta from "@/components/cta";
 
-// --- FINAL SEO & BRANDING ---
+// --- PREMIUM SEO & BRANDING ---
 export const metadata = {
-  // This is the exact name that will appear in Google Search and the Browser Tab
+  // Your main heading for Google search results
   title: "The Apex Visuals | High-Retention Video Editing by Badar", 
-  description: "Professional high-retention video editing and cinematic storytelling by Badar. The Apex Visuals helps creators and brands scale through visual excellence.",
+  
+  // Option 2: The Premium/Cinematic focused description
+  description: "Transform raw footage into cinematic masterpieces. The Apex Visuals provides elite video editing and motion design services by Badar, helping creators and brands dominate through visual excellence.",
+  
   keywords: [
     "Badar", 
     "The Apex Visuals", 
     "Apex Visuals", 
     "apexvisuals.me", 
     "high retention video editing",
-    "video editor portfolio"
+    "video editor portfolio",
+    "cinematic motion design",
+    "Badar video editor"
   ],
   icons: {
-    icon: "/favicon.png", // Points to public/favicon.png
+    icon: "/favicon.png", // Ensure favicon.png is in your /public folder
     shortcut: "/favicon.png",
     apple: "/favicon.png",
   },
