@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 
 // --- Types ---
-type Category = "showreel" | "long" | "short";
+type Category = "Saas Explainer" | "long" | "short";
 
 interface VideoData {
   id: number;
@@ -12,11 +12,11 @@ interface VideoData {
 }  
 
 export default function Portfolio() {
-  const [activeCategory, setActiveCategory] = useState<Category>("showreel");
+  const [activeCategory, setActiveCategory] = useState<Category>("Saas Explainer");
 
   // --- 🛠️ TEMPLATE SECTION: Update your 16 total slots here ---
   const videoData: Record<Category, VideoData[]> = {
-    showreel: [
+    Saas Explainer:[
       { id: 1, url: "https://vimeo.com/1191911212", title: "Portfolio video" },
       { id: 2, url: "https://vimeo.com/1191907530", title: "Saas explainer video" },
       { id: 3, url: "https://vimeo.com/1191908446", title: "App promo video" },
@@ -33,11 +33,11 @@ export default function Portfolio() {
       { id: 9, url: "https://vimeo.com/1191907528?fl=tl&fe=ec", title: "Documentary edit" },
     ],
     short: [
-      { id: 1, url: "https://vimeo.com/1191906074?fl=tl&fe=ec", title: "Motion Graphis reel" },
-      { id: 2, url: "https://vimeo.com/1191910375?fl=tl&fe=ec", title: "Instagram Reel" },
+      { id: 1, url: "https://vimeo.com/1191906074?fl=tl&fe=ec", title: "Motion Graphics reel" },
+      { id: 2, url: "https://vimeo.com/1191910375?fl=tl&fe=ec", title: "Instagram reel" },
       { id: 3, url: "https://vimeo.com/1191909850?fl=tl&fe=ec", title: "Instagram reel" },
       { id: 4, url: "https://vimeo.com/1191908132?fl=tl&fe=ec", title: "TikTok Ad" },
-      { id: 5, url: "https://vimeo.com/1191909476?fl=tl&fe=ec", title: "Youtube Short " },
+      { id: 5, url: "https://vimeo.com/1191909476?fl=tl&fe=ec", title: "Youtube Short" },
       { id: 6, url: "https://vimeo.com/1191909209?fl=tl&fe=ec", title: "Story" },
     ],
   };
