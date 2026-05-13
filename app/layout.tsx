@@ -1,5 +1,5 @@
-// @ts-expect-error: Global CSS import handled by Next.js build pipeline
-import "./css/style.css";
+// @ts-expect-error CSS imports are handled by Next.js
+import "@/app/css/style.css";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import Header from "@/components/ui/header";
