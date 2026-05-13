@@ -31,7 +31,8 @@ export default function ModalVideo({
   const getVimeoEmbedUrl = (url: string) => {
     const match = url.match(/vimeo\.com\/(\d+)/);
     if (match) {
-      return `https://player.vimeo.com/video/${match[1]}?autoplay=1&badge=0&autopause=0&player_id=0&app_id=58479`;
+      // Adding parameters to hide the "More from" screen and other buttons
+      return `https://player.vimeo.com/video/${match[1]}?autoplay=1&badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0&rel=0`;
     }
     return url;
   };
