@@ -17,9 +17,9 @@ export default function Portfolio() {
   // --- 🛠️ TEMPLATE SECTION: Change your links and titles here ---
   const videoData: Record<Category, VideoData[]> = {
     showreel: [
-      { id: 1, url: "https://vimeo.com/1191910588", title: "Portfolio video" },
-      { id: 2, url: "https://vimeo.com/Your_Vimeo_ID", title: "Saas explainer video" },
-      { id: 3, url: "https://vimeo.com/Your_Vimeo_ID", title: "App promo video" },
+      { id: 1, url: "https://vimeo.com/1191907530?share=copy&fl=sv&fe=ci", title: "Portfolio video" },
+      { id: 2, url: "https://vimeo.com/1191908446", title: "Saas explainer video" },
+      { id: 3, url: "https://vimeo.com/1191907530", title: "App promo video" },
     ],
     long: [
       { id: 1, url: "https://vimeo.com/Your_Vimeo_ID", title: "Documentary Edit" },
