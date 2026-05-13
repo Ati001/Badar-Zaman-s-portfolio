@@ -7,15 +7,13 @@ import Cta from "@/components/cta";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Professional Video Editor for Hire | The Apex Visuals",
+  title: {
+    absolute: "The Apex Visuals | SaaS & Creator Video Specialist",
+  },
   description:
     "Hire Badar Zaman — a professional video editor and motion graphics designer for YouTube creators, SaaS brands, and businesses. Cinematic edits that drive views, retention, and revenue.",
   keywords: [
     "hire video editor",
-    "real estate video editor",
-    "property video editor",
-    "property walkthrough video editor",
-    "Real estate editor",
     "professional video editor for hire",
     "YouTube video editing services",
     "motion graphics for hire",
@@ -26,9 +24,6 @@ export const metadata: Metadata = {
     "video editing for brands",
     "short form content editor",
     "Badar Zaman",
-    "Apex visuals",
-    "Apexvisuals",
-    "Apex visual",
     "The Apex Visuals",
   ],
   alternates: {

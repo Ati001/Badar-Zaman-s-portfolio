@@ -106,15 +106,21 @@ export const metadata: Metadata = {
     creator: "@theapexvisuals",
   },
   icons: {
-    icon: "/favicon.png",
-    apple: "/apple-touch-icon.png",
+    icon: [
+      { url: "/favicon.png", type: "image/png" },
+      { url: "/favicon.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: [
+      { url: "/favicon.png", sizes: "180x180", type: "image/png" },
+    ],
+    shortcut: "/favicon.png",
   },
   verification: {
-    google: "YOUR_GOOGLE_SEARCH_CONSOLE_VERIFICATION_CODE", // replace this
+    google: "YOUR_GOOGLE_SEARCH_CONSOLE_VERIFICATION_CODE",
   },
 };
 
-// JSON-LD structured data for rich results
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -148,8 +154,7 @@ const jsonLd = {
         "@type": "SearchAction",
         target: {
           "@type": "EntryPoint",
-          urlTemplate:
-            "https://theapexvisuals.me/?s={search_term_string}",
+          urlTemplate: "https://theapexvisuals.me/?s={search_term_string}",
         },
         "query-input": "required name=search_term_string",
       },
@@ -191,6 +196,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
+        <link rel="icon" href="/favicon.png" type="image/png" />
+        <link rel="shortcut icon" href="/favicon.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
         <Script
           id="json-ld-schema"
           type="application/ld+json"
