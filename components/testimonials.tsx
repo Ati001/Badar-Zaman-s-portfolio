@@ -16,7 +16,7 @@ export default function Portfolio() {
 
   // --- 🛠️ TEMPLATE SECTION: Update your 16 total slots here ---
   const videoData: Record<Category, VideoData[]> = {
-    Saas Explainer:[
+     "Saas Explainer":[
       { id: 1, url: "https://vimeo.com/1191911212", title: "Portfolio video" },
       { id: 2, url: "https://vimeo.com/1191907530", title: "Saas explainer video" },
       { id: 3, url: "https://vimeo.com/1191908446", title: "App promo video" },
@@ -72,7 +72,7 @@ export default function Portfolio() {
                     : "text-gray-400 hover:text-gray-200"
                 }`}
               >
-                {cat === "showreel" ? "Showreel" : cat === "long" ? "Long-form" : "Short-form"}
+                {cat === "Saas Explainer" ? "Showreel" : cat === "long" ? "Long-form" : "Short-form"}
               </button>
             ))}
           </div>
