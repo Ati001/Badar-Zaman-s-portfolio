@@ -95,15 +95,20 @@ export default function Portfolio() {
 function VideoCard({ video, isVertical }: { video: VideoData; isVertical: boolean }) {
   const [isHovered, setIsHovered] = useState(false);
 
-  const getVimeoEmbedUrl = (url: string) => {
+  // Helper to extract Vimeo ID
+  const getVimeoId = (url: string) => {
     const match = url.match(/vimeo\.com\/(\d+)/);
-    if (match) {
-      return `https://player.vimeo.com/video/${match[1]}?autoplay=1&badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0&rel=0`;
-    }
-    return url;
+    return match ? match[1] : null;
   };
 
-  const isVimeo = video.url.includes("vimeo.com");
+  const vimeoId = getVimeoId(video.url);
+
+  const getVimeoEmbedUrl = (id: string | null) => {
+    if (id) {
+      return `https://player.vimeo.com/video/${id}?autoplay=1&badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0&rel=0`;
+    }
+    return video.url;
+  };
 
   return (
     <div 
@@ -112,16 +117,24 @@ function VideoCard({ video, isVertical }: { video: VideoData; isVertical: boolea
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className={`relative w-full ${isVertical ? "aspect-[9/16]" : "aspect-video"}`}>
-        {isHovered && isVimeo ? (
+        {isHovered && vimeoId ? (
           <iframe
-            src={getVimeoEmbedUrl(video.url)}
+            src={getVimeoEmbedUrl(vimeoId)}
             className="h-full w-full object-cover"
             allow="autoplay; fullscreen; picture-in-picture"
             allowFullScreen
           ></iframe>
         ) : (
-          <div className="h-full w-full bg-gray-900 flex items-center justify-center">
-            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent z-10" />
+          <div className="relative h-full w-full bg-gray-900 flex items-center justify-center overflow-hidden">
+            {/* Automatic Thumbnail Fetching */}
+            {vimeoId && (
+                <img 
+                    src={`https://vumbnail.com/${vimeoId}.jpg`} 
+                    className="absolute inset-0 h-full w-full object-cover opacity-60 transition-opacity duration-500 group-hover:opacity-100"
+                    alt={video.title}
+                />
+            )}
+            <div className="absolute inset-0 bg-linear-to-t from-black/90 via-transparent to-transparent z-10" />
           </div>
         )}
 
