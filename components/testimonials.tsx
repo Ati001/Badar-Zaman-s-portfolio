@@ -14,20 +14,29 @@ interface VideoData {
 export default function Portfolio() {
   const [activeCategory, setActiveCategory] = useState<Category>("showreel");
 
-  // --- 🛠️ TEMPLATE SECTION: Change your links and titles here ---
+  // --- 🛠️ TEMPLATE SECTION: Update your 16 total slots here ---
   const videoData: Record<Category, VideoData[]> = {
     showreel: [
-      { id: 1, url: "https://vimeo.com/1191907530?share=copy&fl=sv&fe=ci", title: "Portfolio video" },
-      { id: 2, url: "https://vimeo.com/1191908446", title: "Saas explainer video" },
-      { id: 3, url: "https://vimeo.com/1191907530", title: "App promo video" },
+      { id: 1, url: "https://vimeo.com/1191911212", title: "Portfolio video" },
+      { id: 2, url: "https://vimeo.com/1191907530", title: "Saas explainer video" },
+      { id: 3, url: "https://vimeo.com/1191908446", title: "App promo video" },
     ],
     long: [
-      { id: 1, url: "https://vimeo.com/Your_Vimeo_ID", title: "Documentary Edit" },
-      { id: 2, url: "https://vimeo.com/Your_Vimeo_ID", title: "YouTube Feature" },
+      { id: 1, url: "https://vimeo.com/Your_ID_1", title: "Documentary Edit" },
+      { id: 2, url: "https://vimeo.com/Your_ID_2", title: "YouTube Feature" },
+      { id: 3, url: "https://vimeo.com/Your_ID_3", title: "SaaS Explainer" },
+      { id: 4, url: "https://vimeo.com/Your_ID_4", title: "Corporate Story" },
+      { id: 5, url: "https://vimeo.com/Your_ID_5", title: "Event Recap" },
+      { id: 6, url: "https://vimeo.com/Your_ID_6", title: "Interview Cut" },
+      { id: 7, url: "https://vimeo.com/Your_ID_7", title: "Cinematic Narrative" },
     ],
     short: [
-      { id: 1, url: "https://vimeo.com/Your_Vimeo_ID", title: "Viral Hook Edit" },
-      { id: 2, url: "https://vimeo.com/Your_Vimeo_ID", title: "Instagram Reel" },
+      { id: 1, url: "https://vimeo.com/Your_ID_8", title: "Viral Hook Edit" },
+      { id: 2, url: "https://vimeo.com/Your_ID_9", title: "Instagram Reel" },
+      { id: 3, url: "https://vimeo.com/Your_ID_10", title: "TikTok Ad" },
+      { id: 4, url: "https://vimeo.com/Your_ID_11", title: "Product Teaser" },
+      { id: 5, url: "https://vimeo.com/Your_ID_12", title: "Short Story" },
+      { id: 6, url: "https://vimeo.com/Your_ID_13", title: "Behind The Scenes" },
     ],
   };
 
@@ -81,11 +90,9 @@ export default function Portfolio() {
   );
 }
 
-// --- Video Card Component (Updated for Vimeo) ---
 function VideoCard({ video, isVertical }: { video: VideoData; isVertical: boolean }) {
   const [isHovered, setIsHovered] = useState(false);
 
-  // Function to extract ID and format Vimeo link
   const getVimeoEmbedUrl = (url: string) => {
     const match = url.match(/vimeo\.com\/(\d+)/);
     if (match) {
@@ -112,12 +119,10 @@ function VideoCard({ video, isVertical }: { video: VideoData; isVertical: boolea
           ></iframe>
         ) : (
           <div className="h-full w-full bg-gray-900 flex items-center justify-center">
-            {/* Placeholder / Thumbnail background while not hovered */}
             <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent z-10" />
           </div>
         )}
 
-        {/* UI Overlay (Hides on hover) */}
         <div 
           className={`absolute inset-0 z-20 flex flex-col justify-between p-5 transition-opacity duration-500 ease-in-out ${
             isHovered ? "opacity-0 pointer-events-none" : "opacity-100"
