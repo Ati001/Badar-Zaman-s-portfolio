@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, Fragment } from "react";
+import { useState, Fragment } from "react";
 import type { StaticImageData } from "next/image";
 import { Dialog, Transition, TransitionChild } from "@headlessui/react";
 import Image from "next/image";
@@ -26,7 +26,17 @@ export default function ModalVideo({
   videoHeight,
 }: ModalVideoProps) {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Helper to extract Vimeo ID and create the embed URL
+  const getVimeoEmbedUrl = (url: string) => {
+    const match = url.match(/vimeo\.com\/(\d+)/);
+    if (match) {
+      return `https://player.vimeo.com/video/${match[1]}?autoplay=1&badge=0&autopause=0&player_id=0&app_id=58479`;
+    }
+    return url;
+  };
+
+  const isVimeo = video.includes("vimeo.com");
 
   return (
     <div className="relative">
@@ -57,7 +67,7 @@ export default function ModalVideo({
         </div>
       </button>
 
-      <Transition show={modalOpen} as={Fragment} afterEnter={() => videoRef.current?.play()}>
+      <Transition show={modalOpen} as={Fragment}>
         <Dialog onClose={() => setModalOpen(false)}>
           <TransitionChild
             as="div"
@@ -76,11 +86,21 @@ export default function ModalVideo({
             enterFrom="opacity-0 scale-95"
             enterTo="opacity-100 scale-100"
           >
-            <div className="mx-auto flex h-full max-w-6xl items-center">
+            <div className="mx-auto flex h-full max-w-6xl items-center w-full">
               <Dialog.Panel className="aspect-video w-full overflow-hidden rounded-3xl bg-black">
-                <video ref={videoRef} width={videoWidth} height={videoHeight} loop controls muted playsInline>
-                  <source src={video} type="video/mp4" />
-                </video>
+                {isVimeo ? (
+                  <iframe
+                    src={getVimeoEmbedUrl(video)}
+                    className="w-full h-full"
+                    allow="autoplay; fullscreen; picture-in-picture"
+                    allowFullScreen
+                    title="Vimeo Video"
+                  ></iframe>
+                ) : (
+                  <video width={videoWidth} height={videoHeight} loop controls autoPlay playsInline>
+                    <source src={video} type="video/mp4" />
+                  </video>
+                )}
               </Dialog.Panel>
             </div>
           </TransitionChild>
