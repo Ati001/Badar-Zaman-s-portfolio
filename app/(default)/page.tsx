@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     canonical: "https://theapexvisuals.me",
   },
   openGraph: {
-    title: "Professional Video Editor for Hire | The Apex Visuals",
+    title: "The Apex Visuals | SaaS & Creator Video Specialist",
     description:
       "Cinematic video editing and motion graphics by Badar Zaman. Helping YouTube creators and brands grow with scroll-stopping content.",
     url: "https://theapexvisuals.me",
