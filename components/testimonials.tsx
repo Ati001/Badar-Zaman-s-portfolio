@@ -37,7 +37,7 @@ export default function Portfolio() {
       { id: 1, url: "https://vimeo.com/1191906074?fl=tl&fe=ec", title: "Motion Graphics reel" },
       { id: 2, url: "https://vimeo.com/1191910375?fl=tl&fe=ec", title: "Instagram reel" },
       { id: 3, url: "https://vimeo.com/1191909850?fl=tl&fe=ec", title: "Instagram reel" },
-      { id: 4, url: "https://vimeo.com/1191908132?fl=tl&fe=ec", title: "TikTok Ad" },
+      { id: 4, url: "https://vimeo.com/1192061835?fl=tl&fe=ec", title: "TikTok Ad" },
       { id: 5, url: "https://vimeo.com/1191909476?fl=tl&fe=ec", title: "Youtube Short" },
       { id: 6, url: "https://vimeo.com/1191909209?fl=tl&fe=ec", title: "Story" },
     ],
