@@ -1,9 +1,8 @@
-// @ts-expect-error CSS imports are handled by Next.js
-import "@/app/css/style.css";
+import "./css/style.css";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import Header from "@/components/ui/header";
-import type { Metadata } from "next"; // Required for Vercel/TypeScript build
+import type { Metadata } from "next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -38,7 +37,6 @@ const nacelle = localFont({
   display: "swap",
 });
 
-// --- SEO & OPEN GRAPH METADATA ---
 export const metadata: Metadata = {
   metadataBase: new URL('https://theapexvisuals.me'),
   title: {
