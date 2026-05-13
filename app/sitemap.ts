@@ -5,8 +5,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: 'https://theapexvisuals.me',
       lastModified: new Date(),
-      changeFrequency: 'monthly',
+      changeFrequency: 'weekly', // Increased frequency to help Google index changes faster
       priority: 1,
     },
+    // If you ever add a /blog or /contact page, add them here with priority 0.8
   ]
 }
