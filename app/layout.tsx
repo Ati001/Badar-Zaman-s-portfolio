@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import Header from "@/components/ui/header";
 import type { Metadata } from "next";
+import Script from "next/script";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -44,23 +45,45 @@ export const metadata: Metadata = {
     template: "%s | The Apex Visuals",
   },
   description:
-    "Expert video editing and motion graphics for SaaS, YouTube creators, and brands by Badar Zaman. Specializing in high-retention content and cinematic storytelling.",
+    "The Apex Visuals by Badar Zaman — professional video editing and motion graphics for YouTube creators, SaaS brands, and businesses. High-retention edits, cinematic storytelling, and scroll-stopping content.",
   keywords: [
-    "Video Editor",
-    "Motion Graphics Designer",
-    "YouTube Automation Editor",
-    "SaaS Video Production",
-    "Badar Zaman",
-    "Apex Visuals",
-    "High Retention Video Editing",
+    "video editor for hire",
+    "professional video editing services",
+    "motion graphics designer",
+    "YouTube video editor",
+    "SaaS video production",
+    "high retention video editing",
+    "freelance video editor",
+    "cinematic video editing",
+    "video editor for brands",
+    "Badar Zaman video editor",
+    "The Apex Visuals",
+    "video editing portfolio",
+    "YouTube automation editor",
+    "social media video editor",
+    "short form video editor",
   ],
+  authors: [{ name: "Badar Zaman", url: "https://theapexvisuals.me" }],
+  creator: "Badar Zaman",
+  publisher: "The Apex Visuals",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   alternates: {
-    canonical: "/",
+    canonical: "https://theapexvisuals.me",
   },
   openGraph: {
-    title: "The Apex Visuals | Badar Zaman",
+    title: "The Apex Visuals | Professional Video Editor & Motion Designer",
     description:
-      "Crafting scroll-stopping, cinematic videos that drive results. See my 4K portfolio.",
+      "Cinematic video editing and motion graphics by Badar Zaman. Helping YouTube creators, SaaS brands, and businesses grow through scroll-stopping visual content.",
     url: "https://theapexvisuals.me",
     siteName: "The Apex Visuals",
     images: [
@@ -68,7 +91,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: "The Apex Visuals Portfolio - Badar Zaman",
+        alt: "The Apex Visuals — Video Editing & Motion Graphics by Badar Zaman",
       },
     ],
     locale: "en_US",
@@ -76,14 +99,88 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "The Apex Visuals | Video Editing",
-    description: "High-end motion graphics and video editing by Badar Zaman.",
+    title: "The Apex Visuals | Video Editing & Motion Graphics",
+    description:
+      "Professional video editing and motion graphics by Badar Zaman. High-retention content for creators and brands.",
     images: ["/opengraph-image.png"],
+    creator: "@theapexvisuals",
   },
   icons: {
     icon: "/favicon.png",
     apple: "/apple-touch-icon.png",
   },
+  verification: {
+    google: "YOUR_GOOGLE_SEARCH_CONSOLE_VERIFICATION_CODE", // replace this
+  },
+};
+
+// JSON-LD structured data for rich results
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://theapexvisuals.me/#person",
+      name: "Badar Zaman",
+      url: "https://theapexvisuals.me",
+      jobTitle: "Professional Video Editor & Motion Designer",
+      worksFor: {
+        "@type": "Organization",
+        name: "The Apex Visuals",
+      },
+      description:
+        "Expert video editor and motion graphics designer specializing in high-retention YouTube content, SaaS video production, and cinematic storytelling.",
+      sameAs: [
+        "https://theapexvisuals.me",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://theapexvisuals.me/#website",
+      url: "https://theapexvisuals.me",
+      name: "The Apex Visuals",
+      description:
+        "Professional video editing and motion graphics services by Badar Zaman.",
+      publisher: {
+        "@id": "https://theapexvisuals.me/#person",
+      },
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate:
+            "https://theapexvisuals.me/?s={search_term_string}",
+        },
+        "query-input": "required name=search_term_string",
+      },
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://theapexvisuals.me/#service",
+      name: "The Apex Visuals",
+      url: "https://theapexvisuals.me",
+      description:
+        "High-end video editing, motion graphics, and cinematic content production for YouTube creators, SaaS companies, and brands worldwide.",
+      founder: {
+        "@id": "https://theapexvisuals.me/#person",
+      },
+      serviceType: [
+        "Video Editing",
+        "Motion Graphics Design",
+        "YouTube Video Production",
+        "SaaS Video Production",
+        "Short Form Video Editing",
+        "Social Media Content Creation",
+      ],
+      areaServed: "Worldwide",
+      contactPoint: {
+        "@type": "ContactPoint",
+        email: "badar@apexvisuals.tech",
+        contactType: "Customer Service",
+      },
+      priceRange: "$$",
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -93,6 +190,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <Script
+          id="json-ld-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          strategy="beforeInteractive"
+        />
+      </head>
       <body
         className={`${inter.variable} ${nacelle.variable} bg-gray-950 font-inter text-base text-gray-200 antialiased`}
       >
