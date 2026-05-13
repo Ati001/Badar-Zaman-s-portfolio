@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 
 // --- Types ---
+// Updated to match your desired name exactly
 type Category = "Saas Explainer" | "long" | "short";
 
 interface VideoData {
@@ -12,11 +13,11 @@ interface VideoData {
 }  
 
 export default function Portfolio() {
+  // Matches the new type name
   const [activeCategory, setActiveCategory] = useState<Category>("Saas Explainer");
 
-  // --- 🛠️ TEMPLATE SECTION: Update your 16 total slots here ---
   const videoData: Record<Category, VideoData[]> = {
-     "Saas Explainer":[
+    "Saas Explainer": [
       { id: 1, url: "https://vimeo.com/1191911212", title: "Portfolio video" },
       { id: 2, url: "https://vimeo.com/1191907530", title: "Saas explainer video" },
       { id: 3, url: "https://vimeo.com/1191908446", title: "App promo video" },
@@ -60,9 +61,10 @@ export default function Portfolio() {
           </p>
         </div>
 
+        {/* --- FIXED: Category names in the map below now match the type --- */}
         <div className="flex justify-center pb-12">
-          <div className="relative flex w-full max-w-[480px] rounded-full bg-gray-900/40 p-1 backdrop-blur-md border border-white/10 shadow-2xl">
-            {(["showreel", "long", "short"] as Category[]).map((cat) => (
+          <div className="relative flex w-full max-w-[500px] rounded-full bg-gray-900/40 p-1 backdrop-blur-md border border-white/10 shadow-2xl">
+            {(["Saas Explainer", "long", "short"] as Category[]).map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
@@ -72,7 +74,7 @@ export default function Portfolio() {
                     : "text-gray-400 hover:text-gray-200"
                 }`}
               >
-                {cat === "Saas Explainer" ? "Showreel" : cat === "long" ? "Long-form" : "Short-form"}
+                {cat === "Saas Explainer" ? "Saas Explainer" : cat === "long" ? "Long-form" : "Short-form"}
               </button>
             ))}
           </div>
@@ -95,7 +97,6 @@ export default function Portfolio() {
 function VideoCard({ video, isVertical }: { video: VideoData; isVertical: boolean }) {
   const [isHovered, setIsHovered] = useState(false);
 
-  // Helper to extract Vimeo ID
   const getVimeoId = (url: string) => {
     const match = url.match(/vimeo\.com\/(\d+)/);
     return match ? match[1] : null;
@@ -126,7 +127,6 @@ function VideoCard({ video, isVertical }: { video: VideoData; isVertical: boolea
           ></iframe>
         ) : (
           <div className="relative h-full w-full bg-gray-900 flex items-center justify-center overflow-hidden">
-            {/* Automatic Thumbnail Fetching */}
             {vimeoId && (
                 <img 
                     src={`https://vumbnail.com/${vimeoId}.jpg`} 
