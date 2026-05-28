@@ -3,7 +3,6 @@
 import { useState, useRef } from "react";
 
 // --- Types ---
-// Updated to match your desired name exactly
 type Category = "Saas Explainer" | "long" | "short";
 
 interface VideoData {
@@ -13,37 +12,36 @@ interface VideoData {
 }  
 
 export default function Portfolio() {
-  // Matches the new type name
   const [activeCategory, setActiveCategory] = useState<Category>("Saas Explainer");
 
   const videoData: Record<Category, VideoData[]> = {
     "Saas Explainer": [
       { id: 1, url: "https://vimeo.com/1191911212", title: "Portfolio video" },
       { id: 2, url: "https://vimeo.com/1196347319", title: "Saas explainer video" },
-      { id: 2, url: "https://vimeo.com/1196347320", title: "Saas explainer video" },
-      { id: 2, url: "https://vimeo.com/1196347349", title: "Saas explainer video" },
-      { id: 2, url: "https://vimeo.com/1191907530", title: "Saas explainer video" },
-      { id: 3, url: "https://vimeo.com/1191908446", title: "App promo video" },
+      { id: 3, url: "https://vimeo.com/1196347320", title: "Saas explainer video" },
+      { id: 4, url: "https://vimeo.com/1196347349", title: "Saas explainer video" },
+      { id: 5, url: "https://vimeo.com/1191907530", title: "Saas explainer video" },
+      { id: 6, url: "https://vimeo.com/1191908446", title: "App promo video" },
     ],
     long: [
-      { id: 1, url: "https://vimeo.com/1192012696", title: "Fast paced" },
-      { id: 2, url: "https://vimeo.com/1151190541", title: "Educational Content" },
-      { id: 3, url: "https://vimeo.com/1196347350", title: "Podcast editing" },
-      { id: 3, url: "https://vimeo.com/1191908941", title: "Graphics Editing" },
-      { id: 4, url: "https://vimeo.com/1191907527", title: "Property Speed ramp" },
-      { id: 5, url: "https://vimeo.com/1191911918", title: "Poperty Highlights" },
-      { id: 6, url: "https://vimeo.com/1191907525", title: "Property edit" },
-      { id: 7, url: "https://vimeo.com/1191907528", title: "Short-form showreel" },
-      { id: 8, url: "https://vimeo.com/1151194453", title: "Before and After" },
+      { id: 7, url: "https://vimeo.com/1192012696", title: "Fast paced" },
+      { id: 8, url: "https://vimeo.com/1151190541", title: "Educational Content" },
+      { id: 9, url: "https://vimeo.com/1196347350", title: "Podcast editing" },
+      { id: 10, url: "https://vimeo.com/1191908941", title: "Graphics Editing" },
+      { id: 11, url: "https://vimeo.com/1191907527", title: "Property Speed ramp" },
+      { id: 12, url: "https://vimeo.com/1191911918", title: "Poperty Highlights" },
+      { id: 13, url: "https://vimeo.com/1191907525", title: "Property edit" },
+      { id: 14, url: "https://vimeo.com/1191907528", title: "Short-form showreel" },
+      { id: 15, url: "https://vimeo.com/1151194453", title: "Before and After" },
     ],
     short: [
-      { id: 1, url: "https://vimeo.com/1191906074", title: "Motion Graphics reel" },
-      { id: 2, url: "https://vimeo.com/1191910375", title: "Instagram reel" },
-      { id: 3, url: "https://vimeo.com/1196349799", title: "Instagram reel" },
-      { id: 4, url: "https://vimeo.com/1191909850", title: "Instagram reel" },
-      { id: 4, url: "https://vimeo.com/1191909476", title: "Instagram reel" },
-      { id: 5, url: "https://vimeo.com/1192061835", title: "TikTok Ad" },
-      { id: 6, url: "https://vimeo.com/1191909209", title: "Story" },
+      { id: 16, url: "https://vimeo.com/1191906074", title: "Motion Graphics reel" },
+      { id: 17, url: "https://vimeo.com/1191910375", title: "Instagram reel" },
+      { id: 18, url: "https://vimeo.com/1196349799", title: "Instagram reel" },
+      { id: 19, url: "https://vimeo.com/1191909850", title: "Instagram reel" },
+      { id: 20, url: "https://vimeo.com/1191909476", title: "Instagram reel" },
+      { id: 21, url: "https://vimeo.com/1192061835", title: "TikTok Ad" },
+      { id: 22, url: "https://vimeo.com/1191909209", title: "Story" },
     ],
   };
 
@@ -65,7 +63,6 @@ export default function Portfolio() {
           </p>
         </div>
 
-        {/* --- FIXED: Category names in the map below now match the type --- */}
         <div className="flex justify-center pb-12">
           <div className="relative flex w-full max-w-[500px] rounded-full bg-gray-900/40 p-1 backdrop-blur-md border border-white/10 shadow-2xl">
             {(["Saas Explainer", "long", "short"] as Category[]).map((cat) => (
