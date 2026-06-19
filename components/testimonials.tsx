@@ -100,6 +100,7 @@ export default function Portfolio() {
 function VideoCard({ video, isVertical }: { video: VideoData; isVertical: boolean }) {
   const [isHovered, setIsHovered] = useState(false);
 
+  // Robust parsing configuration to drop hashes or URL queries cleanly
   const getVimeoId = (url: string) => {
     const match = url.match(/vimeo\.com\/(\d+)/);
     return match ? match[1] : null;
@@ -130,12 +131,18 @@ function VideoCard({ video, isVertical }: { video: VideoData; isVertical: boolea
           ></iframe>
         ) : (
           <div className="relative h-full w-full bg-gray-900 flex items-center justify-center overflow-hidden">
-            {vimeoId && (
-                <img 
-                    src={`https://vumbnail.com/${vimeoId}.jpg`} 
-                    className="absolute inset-0 h-full w-full object-cover opacity-60 transition-opacity duration-500 group-hover:opacity-100"
-                    alt={video.title}
-                />
+            {vimeoId ? (
+              <img 
+                src={`https://vumbnail.com/${vimeoId}.jpg`} 
+                className="absolute inset-0 h-full w-full object-cover opacity-60 transition-opacity duration-500 group-hover:opacity-100"
+                alt={video.title}
+                onError={(e) => {
+                  // Fallback to a high-contrast elegant dark gradient placeholder if Vimeo blocks external fetching
+                  e.currentTarget.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450' viewBox='0 0 800 450'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%231e1b4b'/><stop offset='100%25' stop-color='%230f172a'/></linearGradient></defs><rect width='100%25' height='100%25' fill='url(%23g)'/></svg>";
+                }}
+              />
+            ) : (
+              <div className="absolute inset-0 bg-slate-900" />
             )}
             <div className="absolute inset-0 bg-linear-to-t from-black/90 via-transparent to-transparent z-10" />
           </div>
