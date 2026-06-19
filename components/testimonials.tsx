@@ -24,7 +24,7 @@ export default function Portfolio() {
       { id: 6, url: "https://vimeo.com/1191908446", title: "App promo video" },
     ],
     long: [
-      { id: 7, url: "https://vimeo.com/1202777782#t=0", title: "Motion Graphics Editing" },
+      { id: 7, url: "https://vimeo.com/1202777782", title: "Motion Graphics Editing" },
       { id: 8, url: "https://vimeo.com/1202777672", title: "Motion Graphics Editing" },
       { id: 9, url: "https://vimeo.com/1192012696", title: "Fast paced" },
       { id: 10, url: "https://vimeo.com/1151190541", title: "Educational Content" },
