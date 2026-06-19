@@ -89,7 +89,7 @@ export default function HeroHome() {
   thumbHeight={576}
   thumbAlt="Badar Zaman intro"
   // Replaced local path with Vimeo ID
-video="https://vimeo.com/1191910588"
+video="https://vimeo.com/1202781718"
   videoWidth={3840} // Updated to 4K width
   videoHeight={2160} // Updated to 4K height
 />
