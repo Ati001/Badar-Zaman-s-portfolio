@@ -67,7 +67,7 @@ export default function Portfolio() {
   };
 
   return (
-    <section id="portfolio" className="relative scroll-mt-20 py-12 md:py-20">
+    <section id="portfolio" className="relative scroll-mt-20 pt-20 pb-12 md:py-20">
       <div className="absolute top-0 left-0 w-full h-px bg-slate-800" aria-hidden="true" />
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="mx-auto max-w-3xl pb-12 text-center">
@@ -84,13 +84,14 @@ export default function Portfolio() {
           </p>
         </div>
 
-        <div className="flex justify-center pb-12">
-          <div className="relative flex w-full max-w-[620px] rounded-full bg-gray-900/80 p-1 border border-white/10 shadow-lg">
+        {/* Categories Tab Bar */}
+        <div className="flex justify-center pb-12 px-2">
+          <div className="relative flex w-full max-w-[620px] overflow-x-auto rounded-full bg-gray-900/80 p-1.5 border border-white/10 shadow-lg scrollbar-none">
             {(["Saas Explainer", "long", "short", "meta"] as Category[]).map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`relative z-10 flex-1 rounded-full px-3 py-2.5 text-xs md:text-sm font-semibold transition-colors duration-200 whitespace-nowrap ${
+                className={`relative z-10 flex-1 rounded-full px-3.5 py-2 text-xs md:text-sm font-semibold transition-colors duration-200 whitespace-nowrap shrink-0 ${
                   activeCategory === cat
                     ? "bg-white text-black shadow-md"
                     : "text-gray-400 hover:text-gray-200"
@@ -102,6 +103,7 @@ export default function Portfolio() {
           </div>
         </div>
 
+        {/* Video Grid */}
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {videoData[activeCategory].map((video) => (
             <VideoCard

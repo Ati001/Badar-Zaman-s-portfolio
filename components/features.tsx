@@ -49,10 +49,10 @@ export default function Features() {
 
   return (
     <section className="relative">
-      <div className="pointer-events-none absolute left-1/2 top-0 -z-10 -mt-20 -translate-x-1/2" aria-hidden="true">
+      <div className="pointer-events-none absolute left-1/2 top-0 -z-10 -mt-20 -translate-x-1/2 transform-gpu" aria-hidden="true">
         <Image className="max-w-none" src={BlurredShapeGray} width={760} height={668} alt="Blurred shape" />
       </div>
-      <div className="pointer-events-none absolute bottom-0 left-1/2 -z-10 -mb-80 -translate-x-[120%] opacity-50" aria-hidden="true">
+      <div className="pointer-events-none absolute bottom-0 left-1/2 -z-10 -mb-80 -translate-x-[120%] opacity-50 transform-gpu" aria-hidden="true">
         <Image className="max-w-none" src={BlurredShape} width={760} height={668} alt="Blurred shape" />
       </div>
 
@@ -60,9 +60,9 @@ export default function Features() {
         <div className="border-t py-12 [border-image:linear-gradient(to_right,transparent,--theme(--color-slate-400/.25),transparent)1] md:py-20">
           
           {/* Section header */}
-          <div className="mx-auto max-w-3xl pb-4 text-center md:pb-12">
+          <div className="mx-auto max-w-3xl pb-8 text-center md:pb-12">
             <div className="inline-flex items-center gap-3 pb-3 before:h-px before:w-8 before:bg-linear-to-r before:from-transparent before:to-indigo-200/50 after:h-px after:w-8 after:bg-linear-to-l after:from-transparent after:to-indigo-200/50">
-              <span className="inline-flex bg-linear-to-r from-indigo-500 to-indigo-200 bg-clip-text text-transparent">
+              <span className="inline-flex bg-linear-to-r from-indigo-500 to-indigo-200 bg-clip-text text-transparent text-sm uppercase tracking-widest">
                 The Creative Toolkit
               </span>
             </div>
@@ -75,19 +75,26 @@ export default function Features() {
             </p>
           </div>
 
-          {/* Software Toolkit Row - ANIMATION REMOVED FOR MOBILE SPEED */}
-          <div className="flex flex-wrap justify-center items-center gap-8 pb-12 md:pb-20">
-            {softwares.map((software, index) => (
-              <div key={index} className="transition-transform duration-300 hover:scale-110">
-                <Image
-                  src={software.src}
-                  width={60}
-                  height={60}
-                  alt={software.alt}
-                  className="h-12 w-12 md:h-16 md:w-16 object-contain"
-                />
-              </div>
-            ))}
+          {/* Software Toolkit Row with Staggered Entrance & Dock Frame */}
+          <div className="flex justify-center pb-12 md:pb-20">
+            <div className="inline-flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-8 rounded-2xl bg-gray-900/50 p-3 sm:p-4 border border-white/10 shadow-2xl backdrop-blur-sm">
+              {softwares.map((software, index) => (
+                <div
+                  key={index}
+                  data-aos="zoom-y-out"
+                  data-aos-delay={index * 100}
+                  className="group relative flex items-center justify-center p-1.5 transition-all duration-300 hover:-translate-y-1"
+                >
+                  <Image
+                    src={software.src}
+                    width={60}
+                    height={60}
+                    alt={software.alt}
+                    className="h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 object-contain drop-shadow-md transition-transform duration-300 group-hover:scale-110"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Items Grid */}
