@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 // --- Types ---
 type Category = "Saas Explainer" | "long" | "short" | "meta";
@@ -120,7 +120,9 @@ export default function Portfolio() {
 
 function VideoCard({ video, isVertical }: { video: VideoData; isVertical: boolean }) {
   const [isHovered, setIsHovered] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const [thumbnailUrl, setThumbnailUrl] = useState<string | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const match = video.url.match(/vimeo\.com\/(\d+)/);
   const vimeoId = match ? match[1] : null;
@@ -142,18 +144,49 @@ function VideoCard({ video, isVertical }: { video: VideoData; isVertical: boolea
     };
   }, [vimeoId]);
 
+  // Track native fullscreen changes to keep state synchronized
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(document.fullscreenElement === containerRef.current);
+    };
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+    };
+  }, []);
+
+  const toggleFullscreen = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!containerRef.current) return;
+
+    if (!document.fullscreenElement) {
+      containerRef.current.requestFullscreen().catch(() => {});
+    } else {
+      document.exitFullscreen().catch(() => {});
+    }
+  };
+
   return (
     <div
-      className="group relative transform-gpu cursor-pointer overflow-hidden rounded-2xl bg-zinc-900 border border-white/5"
+      ref={containerRef}
+      className={`group relative transform-gpu cursor-pointer overflow-hidden bg-zinc-900 ${
+        isFullscreen ? "h-screen w-screen rounded-0 flex items-center justify-center bg-black" : "rounded-2xl border border-white/5 shadow-lg"
+      }`}
       onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseLeave={() => {
+        if (!isFullscreen) setIsHovered(false);
+      }}
     >
-      <div className={`relative w-full ${isVertical ? "aspect-[9/16]" : "aspect-video"}`}>
-        {isHovered && vimeoId ? (
+      <div
+        className={`relative w-full ${
+          isFullscreen ? "h-full flex items-center justify-center" : isVertical ? "aspect-[9/16]" : "aspect-video"
+        }`}
+      >
+        {(isHovered || isFullscreen) && vimeoId ? (
           <iframe
             src={`https://player.vimeo.com/video/${vimeoId}?autoplay=1&badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0&rel=0`}
             className="h-full w-full object-cover"
-            allow="autoplay; fullscreen; picture-in-picture"
+            allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
             allowFullScreen
           />
         ) : (
@@ -163,35 +196,58 @@ function VideoCard({ video, isVertical }: { video: VideoData; isVertical: boolea
                 src={thumbnailUrl}
                 loading="lazy"
                 decoding="async"
-                className="absolute inset-0 h-full w-full object-cover opacity-70 transition-opacity duration-300 group-hover:opacity-100"
+                className="absolute inset-0 h-full w-full object-cover opacity-80 transition-all duration-300 group-hover:scale-105 group-hover:opacity-100"
                 alt={video.title}
               />
             ) : (
               <div className="absolute inset-0 bg-zinc-900" />
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10" />
+
+            {/* Play Button & Center Indicator */}
+            <div className="absolute inset-0 z-20 flex items-center justify-center">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/20 border border-white/30 shadow-md backdrop-blur-sm transition-transform duration-200 group-hover:scale-110">
+                <svg className="ml-1 fill-white" width="20" height="20" viewBox="0 0 24 24">
+                  <path d="M5 3l14 9-14 9V3z" />
+                </svg>
+              </div>
+            </div>
           </div>
         )}
 
+        {/* Floating Top Controls (Fullscreen Button) */}
         <div
-          className={`absolute inset-0 z-20 flex flex-col justify-between p-5 transition-opacity duration-300 ${
-            isHovered ? "opacity-0 pointer-events-none" : "opacity-100"
+          className={`absolute top-3 right-3 z-30 transition-opacity duration-200 ${
+            isHovered || isFullscreen ? "opacity-100" : "opacity-0 pointer-events-none"
           }`}
         >
-          <div />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/20 border border-white/30 shadow-md transition-transform duration-200 group-hover:scale-110">
-              <svg className="ml-1 fill-white" width="20" height="20" viewBox="0 0 24 24">
-                <path d="M5 3l14 9-14 9V3z" />
+          <button
+            onClick={toggleFullscreen}
+            aria-label="Toggle Fullscreen"
+            className="flex h-8 w-8 items-center justify-center rounded-lg bg-black/60 hover:bg-black/80 border border-white/20 text-white transition-transform hover:scale-105"
+          >
+            {isFullscreen ? (
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3" />
               </svg>
-            </div>
-          </div>
-          <div className="flex items-center">
-            <div className="rounded-lg bg-black/60 px-3 py-1.5 border border-white/10">
-              <span className="text-[10px] font-bold tracking-[0.2em] text-white uppercase antialiased">
-                {video.title}
-              </span>
-            </div>
+            ) : (
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+              </svg>
+            )}
+          </button>
+        </div>
+
+        {/* Bottom Title Label */}
+        <div
+          className={`absolute bottom-3 left-3 z-20 pointer-events-none transition-opacity duration-300 ${
+            isHovered && !isFullscreen ? "opacity-0" : "opacity-100"
+          }`}
+        >
+          <div className="rounded-lg bg-black/60 px-3 py-1.5 border border-white/10">
+            <span className="text-[10px] font-bold tracking-[0.2em] text-white uppercase antialiased">
+              {video.title}
+            </span>
           </div>
         </div>
       </div>
