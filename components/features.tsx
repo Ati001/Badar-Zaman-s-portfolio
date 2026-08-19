@@ -75,22 +75,22 @@ export default function Features() {
             </p>
           </div>
 
-          {/* Software Toolkit Row with Staggered Entrance & Dock Frame */}
-          <div className="flex justify-center pb-12 md:pb-20">
-            <div className="inline-flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-8 rounded-2xl bg-gray-900/50 p-3 sm:p-4 border border-white/10 shadow-2xl backdrop-blur-sm">
+          {/* Software Toolkit Grid / Dock */}
+          <div className="flex justify-center pb-12 md:pb-20 px-4">
+            <div className="grid grid-cols-3 sm:flex sm:flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-8 rounded-2xl bg-gray-900/60 p-4 border border-white/10 shadow-2xl backdrop-blur-md max-w-full">
               {softwares.map((software, index) => (
                 <div
                   key={index}
-                  data-aos="zoom-y-out"
+                  data-aos="fade-right"
                   data-aos-delay={index * 100}
-                  className="group relative flex items-center justify-center p-1.5 transition-all duration-300 hover:-translate-y-1"
+                  className="group relative flex items-center justify-center p-2 transition-all duration-300 hover:-translate-y-1"
                 >
                   <Image
                     src={software.src}
                     width={60}
                     height={60}
                     alt={software.alt}
-                    className="h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 object-contain drop-shadow-md transition-transform duration-300 group-hover:scale-110"
+                    className="h-11 w-11 sm:h-12 sm:w-12 md:h-14 md:w-14 object-contain drop-shadow-md transition-transform duration-300 group-hover:scale-110"
                   />
                 </div>
               ))}
