@@ -84,3 +84,19 @@
     border-color: var(--color-gray-200, currentColor);
   }
 }
+
+/* Fix jerky scrolling and prevent heavy GPU repaints */
+html {
+  scroll-behavior: auto !important;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+}
+
+img, iframe {
+  content-visibility: auto;
+}

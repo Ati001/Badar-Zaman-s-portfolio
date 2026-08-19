@@ -19,7 +19,7 @@ export default function DefaultLayout({
       duration: 600,
       easing: "ease-out-sine",
     });
-  });
+  }, []); // Added dependency array to stop re-initializing on every frame
 
   return (
     <>

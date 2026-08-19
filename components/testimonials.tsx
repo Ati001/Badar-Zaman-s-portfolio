@@ -47,7 +47,6 @@ export default function Portfolio() {
       { id: 25, url: "https://vimeo.com/1191909209", title: "Story" },
     ],
     meta: [
-      // Add your Meta Ads Vimeo links and titles below:
       { id: 26, url: "https://vimeo.com/1219549374", title: "Meta Ad" },
       { id: 27, url: "https://vimeo.com/1219549504", title: "Meta Ad" },
       { id: 39, url: "https://vimeo.com/1192061835", title: "TIKTOK Ad" },
@@ -69,15 +68,15 @@ export default function Portfolio() {
 
   return (
     <section id="portfolio" className="relative scroll-mt-20 py-12 md:py-20">
-      <div className="absolute top-0 left-0 w-full h-px bg-slate-800 before:absolute before:inset-0 before:h-px before:bg-linear-to-r before:from-transparent before:via-indigo-500/50 before:to-transparent before:opacity-0 group-hover:before:opacity-100 before:transition-opacity before:duration-500" aria-hidden="true" />
+      <div className="absolute top-0 left-0 w-full h-px bg-slate-800" aria-hidden="true" />
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="mx-auto max-w-3xl pb-12 text-center">
-          <div className="inline-flex items-center gap-3 pb-3 before:h-px before:w-8 before:bg-linear-to-r before:from-transparent before:to-indigo-200/50 after:h-px after:w-8 after:bg-linear-to-l after:from-transparent after:to-indigo-200/50">
-            <span className="inline-flex bg-linear-to-r from-indigo-500 to-indigo-200 bg-clip-text text-sm uppercase tracking-widest text-transparent">
+          <div className="inline-flex items-center gap-3 pb-3">
+            <span className="inline-flex bg-gradient-to-r from-indigo-500 to-indigo-200 bg-clip-text text-sm uppercase tracking-widest text-transparent">
               Portfolio
             </span>
           </div>
-          <h2 className="animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,var(--color-gray-200),var(--color-indigo-200),var(--color-gray-50),var(--color-indigo-300),var(--color-gray-200))] bg-[length:200%_auto] bg-clip-text pb-4 font-nacelle text-3xl font-semibold text-transparent md:text-4xl">
+          <h2 className="bg-gradient-to-r from-gray-200 via-indigo-200 to-gray-50 bg-clip-text pb-4 font-nacelle text-3xl font-semibold text-transparent md:text-4xl">
             Proven Results & Case Studies
           </h2>
           <p className="text-lg text-indigo-200/65">
@@ -86,14 +85,14 @@ export default function Portfolio() {
         </div>
 
         <div className="flex justify-center pb-12">
-          <div className="relative flex w-full max-w-[620px] rounded-full bg-gray-900/40 p-1 backdrop-blur-md border border-white/10 shadow-2xl">
+          <div className="relative flex w-full max-w-[620px] rounded-full bg-gray-900/80 p-1 border border-white/10 shadow-lg">
             {(["Saas Explainer", "long", "short", "meta"] as Category[]).map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`relative z-10 flex-1 rounded-full px-3 py-2.5 text-xs md:text-sm font-semibold transition-all duration-500 whitespace-nowrap ${
-                  activeCategory === cat 
-                    ? "bg-white text-black shadow-[0_0_15px_rgba(255,255,255,0.3)]" 
+                className={`relative z-10 flex-1 rounded-full px-3 py-2.5 text-xs md:text-sm font-semibold transition-colors duration-200 whitespace-nowrap ${
+                  activeCategory === cat
+                    ? "bg-white text-black shadow-md"
                     : "text-gray-400 hover:text-gray-200"
                 }`}
               >
@@ -105,10 +104,10 @@ export default function Portfolio() {
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {videoData[activeCategory].map((video) => (
-            <VideoCard 
-              key={video.id} 
-              video={video} 
-              isVertical={activeCategory === "short" || activeCategory === "meta"} 
+            <VideoCard
+              key={video.id}
+              video={video}
+              isVertical={activeCategory === "short" || activeCategory === "meta"}
             />
           ))}
         </div>
@@ -121,77 +120,72 @@ function VideoCard({ video, isVertical }: { video: VideoData; isVertical: boolea
   const [isHovered, setIsHovered] = useState(false);
   const [thumbnailUrl, setThumbnailUrl] = useState<string | null>(null);
 
-  const getVimeoId = (url: string) => {
-    const match = url.match(/vimeo\.com\/(\d+)/);
-    return match ? match[1] : null;
-  };
-
-  const vimeoId = getVimeoId(video.url);
+  const match = video.url.match(/vimeo\.com\/(\d+)/);
+  const vimeoId = match ? match[1] : null;
 
   useEffect(() => {
+    let isMounted = true;
     if (vimeoId) {
       fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${vimeoId}`)
         .then((res) => res.json())
         .then((data) => {
-          if (data && data.thumbnail_url) {
-            setThumbnailUrl(data.thumbnail_url.replace(/_[0-9x]+/, '_960x540'));
+          if (isMounted && data && data.thumbnail_url) {
+            setThumbnailUrl(data.thumbnail_url.replace(/_[0-9x]+/, "_960x540"));
           }
         })
-        .catch((err) => console.error("Error fetching live Vimeo thumbnail:", err));
+        .catch(() => {});
     }
+    return () => {
+      isMounted = false;
+    };
   }, [vimeoId]);
 
-  const getVimeoEmbedUrl = (id: string | null) => {
-    if (id) {
-      return `https://player.vimeo.com/video/${id}?autoplay=1&badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0&rel=0`;
-    }
-    return video.url;
-  };
-
   return (
-    <div 
-      className="group relative cursor-pointer overflow-hidden rounded-2xl bg-black/20"
+    <div
+      className="group relative transform-gpu cursor-pointer overflow-hidden rounded-2xl bg-zinc-900 border border-white/5"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className={`relative w-full ${isVertical ? "aspect-[9/16]" : "aspect-video"}`}>
         {isHovered && vimeoId ? (
           <iframe
-            src={getVimeoEmbedUrl(vimeoId)}
+            src={`https://player.vimeo.com/video/${vimeoId}?autoplay=1&badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0&rel=0`}
             className="h-full w-full object-cover"
             allow="autoplay; fullscreen; picture-in-picture"
             allowFullScreen
-          ></iframe>
+          />
         ) : (
-          <div className="relative h-full w-full bg-gray-900 flex items-center justify-center overflow-hidden">
+          <div className="relative h-full w-full bg-zinc-900 flex items-center justify-center overflow-hidden">
             {thumbnailUrl ? (
-              <img 
-                src={thumbnailUrl} 
-                className="absolute inset-0 h-full w-full object-cover opacity-60 transition-opacity duration-500 group-hover:opacity-100" 
+              <img
+                src={thumbnailUrl}
+                loading="lazy"
+                decoding="async"
+                className="absolute inset-0 h-full w-full object-cover opacity-70 transition-opacity duration-300 group-hover:opacity-100"
                 alt={video.title}
               />
             ) : (
-              <div className="absolute inset-0 bg-slate-900" />
+              <div className="absolute inset-0 bg-zinc-900" />
             )}
-            <div className="absolute inset-0 bg-linear-to-t from-black/90 via-transparent to-transparent z-10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10" />
           </div>
         )}
 
-        <div 
-          className={`absolute inset-0 z-20 flex flex-col justify-between p-5 transition-opacity duration-500 ease-in-out ${
+        <div
+          className={`absolute inset-0 z-20 flex flex-col justify-between p-5 transition-opacity duration-300 ${
             isHovered ? "opacity-0 pointer-events-none" : "opacity-100"
           }`}
         >
           <div />
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-white/10 backdrop-blur-xl border border-white/20 transition-all duration-300 group-hover:scale-110">
-              <svg className="ml-1 fill-white" width="24" height="24" viewBox="0 0 24 24">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/20 border border-white/30 shadow-md transition-transform duration-200 group-hover:scale-110">
+              <svg className="ml-1 fill-white" width="20" height="20" viewBox="0 0 24 24">
                 <path d="M5 3l14 9-14 9V3z" />
               </svg>
             </div>
           </div>
           <div className="flex items-center">
-            <div className="rounded-lg bg-black/40 px-3 py-1.5 backdrop-blur-xl border border-white/5">
+            <div className="rounded-lg bg-black/60 px-3 py-1.5 border border-white/10">
               <span className="text-[10px] font-bold tracking-[0.2em] text-white uppercase antialiased">
                 {video.title}
               </span>
