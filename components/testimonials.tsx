@@ -3,13 +3,13 @@
 import { useState, useEffect } from "react";
 
 // --- Types ---
-type Category = "Saas Explainer" | "long" | "short";
+type Category = "Saas Explainer" | "long" | "short" | "meta";
 
 interface VideoData {
   id: number;
   url: string;
   title: string;
-}  
+}
 
 export default function Portfolio() {
   const [activeCategory, setActiveCategory] = useState<Category>("Saas Explainer");
@@ -45,6 +45,23 @@ export default function Portfolio() {
       { id: 23, url: "https://vimeo.com/1192061835", title: "TikTok Ad" },
       { id: 24, url: "https://vimeo.com/1191909209", title: "Story" },
     ],
+    meta: [
+      // Add your Meta Ads Vimeo links and titles below:
+      { id: 25, url: "https://vimeo.com/1192061835", title: "Meta Ad Creative" },
+    ],
+  };
+
+  const getCategoryLabel = (cat: Category) => {
+    switch (cat) {
+      case "Saas Explainer":
+        return "Saas Explainer";
+      case "long":
+        return "Long-form";
+      case "short":
+        return "Short-form";
+      case "meta":
+        return "Meta Ads";
+    }
   };
 
   return (
@@ -66,18 +83,18 @@ export default function Portfolio() {
         </div>
 
         <div className="flex justify-center pb-12">
-          <div className="relative flex w-full max-w-[500px] rounded-full bg-gray-900/40 p-1 backdrop-blur-md border border-white/10 shadow-2xl">
-            {(["Saas Explainer", "long", "short"] as Category[]).map((cat) => (
+          <div className="relative flex w-full max-w-[620px] rounded-full bg-gray-900/40 p-1 backdrop-blur-md border border-white/10 shadow-2xl">
+            {(["Saas Explainer", "long", "short", "meta"] as Category[]).map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`relative z-10 flex-1 rounded-full px-4 py-2.5 text-xs md:text-sm font-semibold transition-all duration-500 ${
+                className={`relative z-10 flex-1 rounded-full px-3 py-2.5 text-xs md:text-sm font-semibold transition-all duration-500 whitespace-nowrap ${
                   activeCategory === cat 
                     ? "bg-white text-black shadow-[0_0_15px_rgba(255,255,255,0.3)]" 
                     : "text-gray-400 hover:text-gray-200"
                 }`}
               >
-                {cat === "Saas Explainer" ? "Saas Explainer" : cat === "long" ? "Long-form" : "Short-form"}
+                {getCategoryLabel(cat)}
               </button>
             ))}
           </div>
@@ -88,7 +105,7 @@ export default function Portfolio() {
             <VideoCard 
               key={video.id} 
               video={video} 
-              isVertical={activeCategory === "short"} 
+              isVertical={activeCategory === "short" || activeCategory === "meta"} 
             />
           ))}
         </div>
@@ -108,14 +125,12 @@ function VideoCard({ video, isVertical }: { video: VideoData; isVertical: boolea
 
   const vimeoId = getVimeoId(video.url);
 
-  // Directly fetch live thumbnail URLs from Vimeo's API
   useEffect(() => {
     if (vimeoId) {
       fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${vimeoId}`)
         .then((res) => res.json())
         .then((data) => {
           if (data && data.thumbnail_url) {
-            // Replaces the default thumbnail size with standard high-res version
             setThumbnailUrl(data.thumbnail_url.replace(/_[0-9x]+/, '_960x540'));
           }
         })
@@ -149,11 +164,10 @@ function VideoCard({ video, isVertical }: { video: VideoData; isVertical: boolea
             {thumbnailUrl ? (
               <img 
                 src={thumbnailUrl} 
-                className="absolute inset-0 h-full w-full object-cover opacity-60 transition-opacity duration-500 group-hover:opacity-100"
+                className="absolute inset-0 h-full w-full object-cover opacity-60 transition-opacity duration-500 group-hover:opacity-100" 
                 alt={video.title}
               />
             ) : (
-              // Clean dark linear block while loading image source response
               <div className="absolute inset-0 bg-slate-900" />
             )}
             <div className="absolute inset-0 bg-linear-to-t from-black/90 via-transparent to-transparent z-10" />
