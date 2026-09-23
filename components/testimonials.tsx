@@ -42,6 +42,7 @@ export default function Portfolio() {
       { id: 19, url: "https://vimeo.com/1191910375", title: "Instagram reel" },
       { id: 20, url: "https://vimeo.com/1196349799", title: "Instagram reel" },
       { id: 21, url: "https://vimeo.com/1191906074", title: "Motion Graphics reel" },
+      { id: 21, url: "https://vimeo.com/1229439189", title: "Motion Graphics reel" },
       { id: 22, url: "https://vimeo.com/1191909850", title: "Instagram reel" },
       { id: 23, url: "https://vimeo.com/1191909476", title: "Instagram reel" },
       { id: 24, url: "https://vimeo.com/1191909209", title: "Story" },
