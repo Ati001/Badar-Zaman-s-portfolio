@@ -22,7 +22,6 @@ export default function Portfolio() {
       { id: 4, url: "https://vimeo.com/1196347349", title: "Saas explainer video" },
       { id: 5, url: "https://vimeo.com/1224833429", title: "Saas explainer video" },
       { id: 6, url: "https://vimeo.com/1191907530", title: "Saas explainer video" },
-      { id: 7, url: "", title: "App promo video" },
     ],
     long: [
       { id: 7,url: "https://vimeo.com/1217621342", title: "Youtube video" },
