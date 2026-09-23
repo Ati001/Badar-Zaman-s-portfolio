@@ -24,15 +24,15 @@ export default function Portfolio() {
       { id: 6, url: "https://vimeo.com/1191907530", title: "Saas explainer video" },
     ],
     long: [
-      { id: 7,url: "https://vimeo.com/1217621342", title: "Youtube video" },
+      { id: 7, url: "https://vimeo.com/1217621342", title: "Youtube video" },
       { id: 8, url: "https://vimeo.com/1202777782#t=0", title: "Educational video" },
       { id: 9, url: "https://vimeo.com/1202777672", title: "Educational video" },
       { id: 10, url: "https://vimeo.com/1192012696", title: "Fast paced" },
       { id: 11, url: "https://vimeo.com/1151190541", title: "Educational Content" },
       { id: 12, url: "https://vimeo.com/1196347350", title: "Podcast editing" },
-      { id: 13, url: "https://vimeo.com/1219549505", title: "Real Estate video " },
+      { id: 13, url: "https://vimeo.com/1219549505", title: "Real Estate video" },
       { id: 14, url: "https://vimeo.com/1191907527", title: "Property Speed ramp" },
-      { id: 15, url: "https://vimeo.com/1191911918", title: "Poperty Highlights" },
+      { id: 15, url: "https://vimeo.com/1191911918", title: "Property Highlights" },
       { id: 16, url: "https://vimeo.com/1191907525", title: "Property edit" },
     ],
     short: [
@@ -41,15 +41,15 @@ export default function Portfolio() {
       { id: 19, url: "https://vimeo.com/1191910375", title: "Instagram reel" },
       { id: 20, url: "https://vimeo.com/1196349799", title: "Instagram reel" },
       { id: 21, url: "https://vimeo.com/1191906074", title: "Motion Graphics reel" },
-      { id: 21, url: "https://vimeo.com/1229439189", title: "Motion Graphics reel" },
-      { id: 22, url: "https://vimeo.com/1191909850", title: "Instagram reel" },
-      { id: 23, url: "https://vimeo.com/1191909476", title: "Instagram reel" },
-      { id: 24, url: "https://vimeo.com/1191909209", title: "Story" },
+      { id: 22, url: "https://vimeo.com/1229439189", title: "Motion Graphics reel" },
+      { id: 23, url: "https://vimeo.com/1191909850", title: "Instagram reel" },
+      { id: 24, url: "https://vimeo.com/1191909476", title: "Instagram reel" },
+      { id: 25, url: "https://vimeo.com/1191909209", title: "Story" },
     ],
     meta: [
-      { id: 25, url: "https://vimeo.com/1219549374", title: "Meta Ad" },
-      { id: 26, url: "https://vimeo.com/1219549504", title: "Meta Ad" },
-      { id: 27, url: "https://vimeo.com/1192061835", title: "TIKTOK Ad" },
+      { id: 26, url: "https://vimeo.com/1219549374", title: "Meta Ad" },
+      { id: 27, url: "https://vimeo.com/1219549504", title: "Meta Ad" },
+      { id: 28, url: "https://vimeo.com/1192061835", title: "TIKTOK Ad" },
     ],
   };
 
@@ -107,7 +107,7 @@ export default function Portfolio() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {videoData[activeCategory].map((video) => (
             <VideoCard
-              key={video.id}
+              key={`${activeCategory}-${video.id}`}
               video={video}
               isVertical={activeCategory === "short" || activeCategory === "meta"}
             />
@@ -129,6 +129,10 @@ function VideoCard({ video, isVertical }: { video: VideoData; isVertical: boolea
 
   useEffect(() => {
     let isMounted = true;
+    // Reset thumbnail whenever video URL changes
+    setThumbnailUrl(null);
+    setIsHovered(false);
+
     if (vimeoId) {
       fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${vimeoId}`)
         .then((res) => res.json())
@@ -170,7 +174,9 @@ function VideoCard({ video, isVertical }: { video: VideoData; isVertical: boolea
     <div
       ref={containerRef}
       className={`group relative transform-gpu cursor-pointer overflow-hidden bg-zinc-900 ${
-        isFullscreen ? "h-screen w-screen rounded-0 flex items-center justify-center bg-black" : "rounded-2xl border border-white/5 shadow-lg"
+        isFullscreen
+          ? "h-screen w-screen rounded-0 flex items-center justify-center bg-black"
+          : "rounded-2xl border border-white/5 shadow-lg"
       }`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => {
@@ -200,7 +206,7 @@ function VideoCard({ video, isVertical }: { video: VideoData; isVertical: boolea
                 alt={video.title}
               />
             ) : (
-              <div className="absolute inset-0 bg-zinc-900" />
+              <div className="absolute inset-0 bg-zinc-900 animate-pulse" />
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10" />
 
