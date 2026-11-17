@@ -17,7 +17,7 @@ export default function Header() {
           {/* Contact Button - Added relative z-10 */}
           <div className="relative z-10 flex flex-1 items-center justify-end">
             <a
-              href="mailto:badar@apexvisuals.tech"
+              href="mailto:badar@apexvisual.studio"
               className="btn-sm bg-linear-to-t from-indigo-600 to-indigo-500 bg-[length:100%_100%] bg-[bottom] py-[5px] px-4 text-white shadow-[inset_0px_1px_0px_0px_rgba(255,255,255,0.16)] hover:bg-[length:100%_150%] transition-all duration-300 rounded-lg text-sm font-medium"
             >
               Contact Apex Visuals
