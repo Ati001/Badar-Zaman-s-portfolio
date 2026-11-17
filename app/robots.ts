@@ -13,7 +13,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
       },
     ],
-    sitemap: "https://theapexvisuals.me/sitemap.xml",
-    host: "https://theapexvisuals.me",
+    sitemap: "https://www.goapexstudio.me/sitemap.xml",
+    host: "https://www.goapexstudio.me",
   };
 }

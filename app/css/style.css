@@ -85,11 +85,11 @@
   }
 }
 
-/* Fix jerky scrolling and prevent heavy GPU repaints */
+/* Smooth hardware-accelerated scrolling without layout recalculation stutter */
 html {
-  scroll-behavior: auto !important;
+  scroll-behavior: auto;
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -97,6 +97,9 @@ body {
   overscroll-behavior-y: none;
 }
 
-img, iframe {
-  content-visibility: auto;
+/* Promote blurred decorative layers and sections to their own GPU compositor layer */
+[class*="blur-"],
+[class*="backdrop-blur"] {
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }

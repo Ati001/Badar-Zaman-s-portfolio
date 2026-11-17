@@ -39,31 +39,33 @@ const nacelle = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://theapexvisuals.me"),
+  metadataBase: new URL("https://www.goapexstudio.me"),
   title: {
     default: "The Apex Visuals | Professional Video Editor & Motion Designer",
     template: "%s | The Apex Visuals",
   },
   description:
-    "The Apex Visuals by Badar Zaman — professional video editing and motion graphics for YouTube creators, SaaS brands, and businesses. High-retention edits, cinematic storytelling, and scroll-stopping content.",
+    "The Apex Visuals by Badar Zaman — professional video editing and motion graphics for SaaS brands, YouTube creators, and digital agencies. High-retention edits, product explainers, and scroll-stopping content.",
   keywords: [
     "video editor for hire",
-    "professional video editing services",
+    "SaaS explainer video production",
+    "B2B SaaS video editor",
+    "product demo video editor",
     "motion graphics designer",
-    "YouTube video editor",
-    "SaaS video production",
-    "high retention video editing",
+    "high retention YouTube video editor",
+    "white label video editing agency",
+    "overflow video editing partner",
+    "2D motion graphics and compositing",
+    "commercial ad video editor",
+    "short form video editor",
+    "Instagram reels and TikTok editor",
     "freelance video editor",
-    "cinematic video editing",
-    "video editor for brands",
+    "cinematic storytelling editor",
     "Badar Zaman video editor",
     "The Apex Visuals",
-    "video editing portfolio",
-    "YouTube automation editor",
-    "social media video editor",
-    "short form video editor",
+    "Go Apex Studio",
   ],
-  authors: [{ name: "Badar Zaman", url: "https://theapexvisuals.me" }],
+  authors: [{ name: "Badar Zaman", url: "https://www.goapexstudio.me" }],
   creator: "Badar Zaman",
   publisher: "The Apex Visuals",
   robots: {
@@ -78,13 +80,13 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://theapexvisuals.me",
+    canonical: "https://www.goapexstudio.me",
   },
   openGraph: {
     title: "The Apex Visuals | Professional Video Editor & Motion Designer",
     description:
-      "Cinematic video editing and motion graphics by Badar Zaman. Helping YouTube creators, SaaS brands, and businesses grow through scroll-stopping visual content.",
-    url: "https://theapexvisuals.me",
+      "Cinematic video editing and motion graphics by Badar Zaman. Helping SaaS brands, YouTube creators, and agencies grow through scroll-stopping visual content.",
+    url: "https://www.goapexstudio.me",
     siteName: "The Apex Visuals",
     images: [
       {
@@ -101,7 +103,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "The Apex Visuals | Video Editing & Motion Graphics",
     description:
-      "Professional video editing and motion graphics by Badar Zaman. High-retention content for creators and brands.",
+      "Professional video editing and motion graphics by Badar Zaman. High-retention content for SaaS brands and creators.",
     images: ["/opengraph-image.png"],
     creator: "@theapexvisuals",
   },
@@ -126,56 +128,57 @@ const jsonLd = {
   "@graph": [
     {
       "@type": "Person",
-      "@id": "https://theapexvisuals.me/#person",
+      "@id": "https://www.goapexstudio.me/#person",
       name: "Badar Zaman",
-      url: "https://theapexvisuals.me",
+      url: "https://www.goapexstudio.me",
       jobTitle: "Professional Video Editor & Motion Designer",
       worksFor: {
         "@type": "Organization",
         name: "The Apex Visuals",
       },
       description:
-        "Expert video editor and motion graphics designer specializing in high-retention YouTube content, SaaS video production, and cinematic storytelling.",
+        "Expert video editor and motion graphics designer specializing in high-retention YouTube content, SaaS video production, white-label agency editing, and cinematic storytelling.",
       sameAs: [
-        "https://theapexvisuals.me",
+        "https://www.goapexstudio.me",
       ],
     },
     {
       "@type": "WebSite",
-      "@id": "https://theapexvisuals.me/#website",
-      url: "https://theapexvisuals.me",
+      "@id": "https://www.goapexstudio.me/#website",
+      url: "https://www.goapexstudio.me",
       name: "The Apex Visuals",
       description:
         "Professional video editing and motion graphics services by Badar Zaman.",
       publisher: {
-        "@id": "https://theapexvisuals.me/#person",
+        "@id": "https://www.goapexstudio.me/#person",
       },
       potentialAction: {
         "@type": "SearchAction",
         target: {
           "@type": "EntryPoint",
-          urlTemplate: "https://theapexvisuals.me/?s={search_term_string}",
+          urlTemplate: "https://www.goapexstudio.me/?s={search_term_string}",
         },
         "query-input": "required name=search_term_string",
       },
     },
     {
       "@type": "ProfessionalService",
-      "@id": "https://theapexvisuals.me/#service",
+      "@id": "https://www.goapexstudio.me/#service",
       name: "The Apex Visuals",
-      url: "https://theapexvisuals.me",
+      url: "https://www.goapexstudio.me",
       description:
-        "High-end video editing, motion graphics, and cinematic content production for YouTube creators, SaaS companies, and brands worldwide.",
+        "High-end video editing, motion graphics, and cinematic content production for SaaS companies, YouTube creators, and agencies worldwide.",
       founder: {
-        "@id": "https://theapexvisuals.me/#person",
+        "@id": "https://www.goapexstudio.me/#person",
       },
       serviceType: [
         "Video Editing",
         "Motion Graphics Design",
-        "YouTube Video Production",
         "SaaS Video Production",
+        "YouTube Video Production",
+        "White-Label Video Editing",
         "Short Form Video Editing",
-        "Social Media Content Creation",
+        "Commercial Ad Editing",
       ],
       areaServed: "Worldwide",
       contactPoint: {
@@ -194,7 +197,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en">
       <head>
         <link rel="icon" href="/favicon.png" type="image/png" />
         <link rel="shortcut icon" href="/favicon.png" type="image/png" />
@@ -209,7 +212,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${nacelle.variable} bg-gray-950 font-inter text-base text-gray-200 antialiased`}
       >
-        <div className="flex min-h-screen flex-col overflow-hidden supports-[overflow:clip]:overflow-clip">
+        <div className="flex min-h-screen flex-col overflow-x-clip">
           <Header />
           <main className="grow">{children}</main>
         </div>

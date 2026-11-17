@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://theapexvisuals.me";
+  const baseUrl = "https://www.goapexstudio.me";
   const currentDate = new Date();
 
   return [

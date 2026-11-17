@@ -11,29 +11,32 @@ export const metadata: Metadata = {
     absolute: "The Apex Visuals | SaaS & Creator Video Specialist",
   },
   description:
-    "Hire Badar Zaman — a professional video editor and motion graphics designer for YouTube creators, SaaS brands, and businesses. Cinematic edits that drive views, retention, and revenue.",
+    "Hire Badar Zaman — a professional video editor and motion graphics designer for SaaS brands, YouTube creators, and digital agencies. Cinematic edits that drive views, retention, and revenue.",
   keywords: [
     "hire video editor",
+    "SaaS explainer video editor",
+    "B2B SaaS product demo video",
     "professional video editor for hire",
     "YouTube video editing services",
-    "motion graphics for hire",
-    "SaaS explainer video editor",
+    "motion graphics designer for hire",
     "high retention YouTube editing",
+    "white label video editing services",
     "freelance video editor online",
     "cinematic video editor",
-    "video editing for brands",
+    "commercial ad video editor",
     "short form content editor",
     "Badar Zaman",
     "The Apex Visuals",
+    "Go Apex Studio",
   ],
   alternates: {
-    canonical: "https://theapexvisuals.me",
+    canonical: "https://www.goapexstudio.me",
   },
   openGraph: {
     title: "The Apex Visuals | SaaS & Creator Video Specialist",
     description:
-      "Cinematic video editing and motion graphics by Badar Zaman. Helping YouTube creators and brands grow with scroll-stopping content.",
-    url: "https://theapexvisuals.me",
+      "Cinematic video editing and motion graphics by Badar Zaman. Helping SaaS brands, YouTube creators, and agencies grow with scroll-stopping content.",
+    url: "https://www.goapexstudio.me",
     images: [
       {
         url: "/opengraph-image.png",
